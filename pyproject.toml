@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "lumiere-fer"
+version = "0.1.0"
+description = "Facial expression recognition research for Lumiere"
+authors = ["DudeBro249 <appdevdeploy@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
