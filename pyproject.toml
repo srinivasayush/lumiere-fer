@@ -6,9 +6,16 @@ authors = ["DudeBro249 <appdevdeploy@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
+tensorflow = "^2.5.0"
+deepface = "^0.0.65"
+kaggle = "^1.5.12"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
+taskipy = "^1.8.1"
+
+[tool.taskipy.tasks]
+start = { cmd = "python -m lumiere_fer", help = "Runs main program" }
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
