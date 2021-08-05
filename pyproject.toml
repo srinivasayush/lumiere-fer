@@ -9,6 +9,8 @@ python = "^3.9"
 tensorflow = "^2.5.0"
 deepface = "^0.0.65"
 kaggle = "^1.5.12"
+Pillow = "^8.3.1"
+pydantic = "^1.8.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
@@ -16,6 +18,8 @@ taskipy = "^1.8.1"
 
 [tool.taskipy.tasks]
 start = { cmd = "python -m lumiere_fer", help = "Runs main program" }
+datasets = { cmd = "python -m lumiere_fer.downloaders", help = "Downloads datasets" }
+relight = { cmd = "python lumiere_fer/relighter.py", help = "Relights datasets"}
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

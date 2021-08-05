@@ -139,3 +139,4 @@ cython_debug/
 
 # Datasets
 lumiere_fer/datasets/fer2013
+lumiere_fer/datasets/ckplus
