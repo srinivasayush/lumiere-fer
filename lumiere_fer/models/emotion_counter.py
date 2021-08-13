@@ -42,14 +42,8 @@ class EmotionCounter(BaseModel):
             surprise=0,
             surprise_dark=0,
         )
-    
-    @staticmethod
-    def from_dict(dict: Dict) -> EmotionCounter:
-        dict['sad'] = dict['sadness']
-        dict['sad_dark'] = dict['sadness_dark']
-        return EmotionCounter(**dict)
 
-    def readable_string(self):
+    def __str__(self):
         return json.dumps(
-            self.dict(), indent=2,
+            self.dict(), indent=4,
         )
