@@ -138,5 +138,8 @@ dmypy.json
 cython_debug/
 
 # Datasets
-lumiere_fer/datasets/fer2013
-lumiere_fer/datasets/ckplus
+datasets/fer2013
+datasets/ckplus
+
+# Results
+results

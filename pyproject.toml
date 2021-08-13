@@ -1,16 +1,18 @@
 [tool.poetry]
 name = "lumiere-fer"
 version = "0.1.0"
-description = "Facial expression recognition research for Lumiere"
+description = "Facial expression recognition research for the Lumiere Research Program"
 authors = ["DudeBro249 <appdevdeploy@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-tensorflow = "^2.5.0"
-deepface = "^0.0.65"
-kaggle = "^1.5.12"
 Pillow = "^8.3.1"
+kaggle = "^1.5.12"
+imutils = "^0.5.4"
+tensorflow = "^2.6.0"
+deepface = "^0.0.67"
 pydantic = "^1.8.2"
+dlib = "^19.22.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
@@ -18,8 +20,9 @@ taskipy = "^1.8.1"
 
 [tool.taskipy.tasks]
 start = { cmd = "python -m lumiere_fer", help = "Runs main program" }
-datasets = { cmd = "python -m lumiere_fer.downloaders", help = "Downloads datasets" }
+download-datasets = { cmd = "python -m lumiere_fer.downloaders", help = "Downloads datasets" }
 relight = { cmd = "python lumiere_fer/relighter.py", help = "Relights datasets"}
+setup-datasets = { cmd = "task download-datasets && task relight", help = "Sets datasets up" }
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

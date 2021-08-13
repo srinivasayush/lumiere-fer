@@ -8,7 +8,7 @@ from lumiere_fer.constants.kaggle_api import kaggle_api
 def download_kaggle_dataset(
     dataset_name: str,
     download_to: str,
-    log: Optional[bool] = True,
+    log: Optional[bool] = False,
 ):
     if not os.path.exists(download_to):
         if log:
