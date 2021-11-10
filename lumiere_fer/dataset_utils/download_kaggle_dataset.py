@@ -1,4 +1,3 @@
-from lumiere_fer.constants.generic import FER_2013_LOCATION
 import os
 from typing import Optional
 from lumiere_fer.constants.kaggle_api import kaggle_api
