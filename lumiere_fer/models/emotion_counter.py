@@ -19,6 +19,9 @@ class EmotionCounter(BaseModel):
     happy: float
     happy_dark: float
 
+    neutral: float
+    neutral_dark: float
+
     sad: float
     sad_dark: float
 
@@ -37,6 +40,8 @@ class EmotionCounter(BaseModel):
             fear_dark=0,
             happy=0,
             happy_dark=0,
+            neutral=0,
+            neutral_dark=0,
             sad=0,
             sad_dark=0,
             surprise=0,

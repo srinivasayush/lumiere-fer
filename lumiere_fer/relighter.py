@@ -1,11 +1,11 @@
 import enum
 import os
-from glob import glob
 from typing import Optional
 
 from PIL import Image, ImageEnhance
 
-from lumiere_fer.constants.generic import CK_PLUS_LOCATION, FER_2013_LOCATION
+from lumiere_fer.constants.generic import DATASETS_TO_PATHS
+from lumiere_fer.utils.progress import show_current_progress
 
 
 class RelightType(enum.Enum):
@@ -16,6 +16,7 @@ class RelightType(enum.Enum):
 def relight_image_and_save_simple(
     image_path: str,
     relight_type: RelightType,
+    verbose: Optional[bool] = False,
 ) -> Optional[Image.Image]:
 
     image_name, image_file_extension = os.path.splitext(image_path)
@@ -24,28 +25,43 @@ def relight_image_and_save_simple(
     if os.path.exists(relit_image_path):
         return
 
-    image = Image.open(image_path)
-    image_enhancer = ImageEnhance.Brightness(image)
+    try:
+        image = Image.open(image_path)
+        image_enhancer = ImageEnhance.Brightness(image)
 
-    enhance_factor = 1.5 if relight_type == RelightType.bright else 0.4 # If not bright, then assume dark
-    relit_image = image_enhancer.enhance(enhance_factor)
+        enhance_factor = 1.5 if relight_type == RelightType.bright else 0.4 # If not bright, then assume dark
+        relit_image = image_enhancer.enhance(enhance_factor)
 
-    relit_image.save(relit_image_path)
+        relit_image.save(relit_image_path)
 
-    image.close()
+        image.close()
 
-    return relit_image
+        return relit_image
+    except Exception as exception:
+        if verbose:
+            print(f'Got an Exception when relighting: {exception}')
 
 
 def relight_datasets():
-    fer_2013_image_filepaths = glob(f'{FER_2013_LOCATION}/test/**/**.jpg') + glob(f'{FER_2013_LOCATION}/train/**/**.jpg')
-    ck_plus_filepaths = glob(f'{CK_PLUS_LOCATION}/CK+48/**/**.png')
-
-    image_filepaths = fer_2013_image_filepaths + ck_plus_filepaths
-    for filepath in image_filepaths:
-        relight_image_and_save_simple(image_path=filepath, relight_type=RelightType.dark)
+    print('Relighting started!')
+    image_filepaths = []
     
-    print('Relighting Finished!')
+    for dataset_image_filepaths in DATASETS_TO_PATHS.values():
+        image_filepaths += dataset_image_filepaths
+
+    for i in range(0, len(image_filepaths)):
+        show_current_progress(
+            current=i,
+            total=len(image_filepaths)
+        )
+
+        relight_image_and_save_simple(
+            image_path=image_filepaths[i],
+            relight_type=RelightType.dark,
+            verbose=True,
+        )
+    
+    print('Relighting finished!')
 
 if __name__ ==  '__main__':
     relight_datasets()

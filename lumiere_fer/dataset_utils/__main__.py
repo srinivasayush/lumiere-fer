@@ -1,6 +1,11 @@
+import os
+from pathlib import Path
+from lumiere_fer.constants.generic import FERG_DB_LOCATION, FER_2013_LOCATION
+from lumiere_fer.dataset_utils.download_kaggle_dataset import \
+    download_kaggle_dataset
 from lumiere_fer.models.kaggle_dataset_metadata import KaggleDatasetMetadata
-from lumiere_fer.constants.generic import CK_PLUS_LOCATION, FER_2013_LOCATION
-from lumiere_fer.downloaders.download_kaggle_dataset import download_kaggle_dataset
+from glob import iglob
+
 
 def download_kaggle_datasets():
     """
@@ -11,11 +16,7 @@ def download_kaggle_datasets():
         KaggleDatasetMetadata(
             dataset_name='msambare/fer2013',
             download_location=FER_2013_LOCATION,
-        ),
-        KaggleDatasetMetadata(
-            dataset_name='shawon10/ckplus',
-            download_location=CK_PLUS_LOCATION,
-        ),
+        )
     ]
     
     for metadata in dataset_metadata:
@@ -25,5 +26,17 @@ def download_kaggle_datasets():
             log=True,
         )
 
+def setup_ferg_dataset():
+    for item_path in iglob(FERG_DB_LOCATION + '/**', recursive=True):
+        if not os.path.isdir(item_path):
+            continue
+
+        folder_name = item_path.split('\\')[-1]
+        if '_' in folder_name:
+            emotion_alias = folder_name.split('_')[-1]
+            os.rename(item_path, f'{str(Path(item_path).parent)}/{emotion_alias}')
+
+
 if __name__ == '__main__':
     download_kaggle_datasets()
+    setup_ferg_dataset()

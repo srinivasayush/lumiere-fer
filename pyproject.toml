@@ -20,9 +20,8 @@ taskipy = "^1.8.1"
 
 [tool.taskipy.tasks]
 start = { cmd = "python -m lumiere_fer", help = "Runs main program" }
-download-datasets = { cmd = "python -m lumiere_fer.downloaders", help = "Downloads datasets" }
 relight = { cmd = "python lumiere_fer/relighter.py", help = "Relights datasets"}
-setup-datasets = { cmd = "task download-datasets && task relight", help = "Sets datasets up" }
+setup-datasets = { cmd = "python -m lumiere_fer.dataset_utils && task relight", help = "Sets datasets up" }
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

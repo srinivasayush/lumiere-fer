@@ -7,7 +7,8 @@ def get_emotion_name_by_alias(emotion_alias: str) -> Optional[str]:
         'angry': ['angry', 'anger'],
         'disgust': ['disgust'],
         'fear': ['fear'],
-        'happy': ['happy'],
+        'happy': ['happy', 'joy'],
+        'neutral': ['neutral'],
         'sad': ['sad', 'sadness'],
         'surprise': ['surprise'],
     }
